@@ -1,6 +1,5 @@
 ﻿using GestionAbscence.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace GestionAbscence.Data
 {
