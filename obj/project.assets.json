@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user_\\Desktop\\GestionAbscence\\GestionAbscence.csproj",
+      "projectUniqueName": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj",
       "projectName": "GestionAbscence",
-      "projectPath": "C:\\Users\\user_\\Desktop\\GestionAbscence\\GestionAbscence.csproj",
+      "projectPath": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj",
       "packagesPath": "C:\\Users\\user_\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user_\\Desktop\\GestionAbscence\\obj\\",
+      "outputPath": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
