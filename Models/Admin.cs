@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace GestionAbscence.Models
 {
-    public class Admin : User
+    public class Admin
     {
-        public string AdminCode { get; set; } // Specific property for Admins, if necessary
+        [Key]
+        public int AdminId { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
+        [Required]
+        [MaxLength(50)]
+        public string AdminCode { get; set; } // Specific property for Admin
     }
 }

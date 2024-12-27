@@ -17,9 +17,10 @@ namespace GestionAbscence.Models
         public string Password { get; set; }
 
         [Required]
-        public string Role { get; set; }  // Role can be "Admin", "Enseignant", "Etudiant"
+        [MaxLength(20)]
+        public string Role { get; set; } // Admin, Enseignant, Etudiant
 
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 }

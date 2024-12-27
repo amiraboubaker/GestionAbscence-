@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 
 namespace GestionAbscence.Models
 {
@@ -9,24 +9,33 @@ namespace GestionAbscence.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string Nom { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string Prenom { get; set; }
+
         public DateTime DateNaissance { get; set; }
 
-        [ForeignKey("CodeClasse")]
+        [ForeignKey("Classe")]
         public int CodeClasse { get; set; }
+        public virtual Classe Classe { get; set; }
 
+        [Required]
         public int NumInscription { get; set; }
+
+        [MaxLength(200)]
         public string Adresse { get; set; }
+
+        [EmailAddress]
         public string Mail { get; set; }
-        public int Tel { get; set; }
 
-        // Navigation property for FicheAbsences via LigneFicheAbsence
+        [Phone]
+        public string Tel { get; set; }
+
         public virtual ICollection<LigneFicheAbsence> LigneFicheAbsences { get; set; }
-
-        // Relationship to the User class (One-to-One)
-        [ForeignKey("User")]
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
     }
 }
