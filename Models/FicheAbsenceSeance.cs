@@ -6,9 +6,20 @@ namespace GestionAbscence.Models
     public class FicheAbsenceSeance
     {
         [Key]
-        public int CodeFicheAbsence { get; set; }
+        public int Id { get; set; }
 
-        [ForeignKey("CodeSeance")]
+        // Foreign Key for FicheAbsence
+        [ForeignKey("FicheAbsence")]
+        public int IdFicheAbsence { get; set; }
+
+        // Navigation property for FicheAbsence
+        public virtual FicheAbsence FicheAbsence { get; set; }
+
+        // Foreign Key for Seance
+        [ForeignKey("Seance")]
         public int CodeSeance { get; set; }
+
+        // Navigation property for Seance
+        public virtual Seance Seance { get; set; }
     }
 }

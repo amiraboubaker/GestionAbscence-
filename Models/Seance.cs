@@ -9,5 +9,8 @@ namespace GestionAbscence.Models
         public string NomSeance { get; set; }
         public DateTime HeureDebut { get; set; }
         public DateTime HeureFin { get; set; }
+
+        // Navigation property for FicheAbsences via FicheAbsenceSeance
+        public virtual ICollection<FicheAbsenceSeance> FicheAbsenceSeances { get; set; }
     }
 }

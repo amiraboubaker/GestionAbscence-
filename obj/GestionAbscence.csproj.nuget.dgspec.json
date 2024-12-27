@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj": {}
+    "C:\\Documents\\GitHub\\GestionAbscence\\GestionAbscence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj": {
+    "C:\\Documents\\GitHub\\GestionAbscence\\GestionAbscence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj",
+        "projectUniqueName": "C:\\Documents\\GitHub\\GestionAbscence\\GestionAbscence.csproj",
         "projectName": "GestionAbscence",
-        "projectPath": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\GestionAbscence.csproj",
+        "projectPath": "C:\\Documents\\GitHub\\GestionAbscence\\GestionAbscence.csproj",
         "packagesPath": "C:\\Users\\user_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user_\\Desktop\\test\\GestionAbscence-\\obj\\",
+        "outputPath": "C:\\Documents\\GitHub\\GestionAbscence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,28 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

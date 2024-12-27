@@ -13,9 +13,13 @@ namespace GestionAbscence.Models
 
         [ForeignKey("CodeClasse")]
         public int CodeClasse { get; set; }
+
         public int NumInscription { get; set; }
         public string Adresse { get; set; }
         public string Mail { get; set; }
         public int Tel { get; set; }
+
+        // Navigation property for FicheAbsences via LigneFicheAbsence
+        public virtual ICollection<LigneFicheAbsence> LigneFicheAbsences { get; set; }
     }
 }

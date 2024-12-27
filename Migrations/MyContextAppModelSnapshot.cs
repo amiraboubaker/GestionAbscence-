@@ -22,48 +22,7 @@ namespace GestionAbscence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GestionAbscence.Models.Classe", b =>
-                {
-                    b.Property<int>("CodeClasse")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeClasse"));
-
-                    b.Property<int>("CodeDepartement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodeGroupe")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomClasse")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CodeClasse");
-
-                    b.ToTable("Classe");
-                });
-
-            modelBuilder.Entity("GestionAbscence.Models.Departement", b =>
-                {
-                    b.Property<int>("CodeDepartement")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeDepartement"));
-
-                    b.Property<string>("NomDepartement")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CodeDepartement");
-
-                    b.ToTable("Departement");
-                });
-
-            modelBuilder.Entity("GestionAbscence.Models.Enseignant", b =>
+            modelBuilder.Entity("Enseignant", b =>
                 {
                     b.Property<int>("CodeEnseignant")
                         .ValueGeneratedOnAdd()
@@ -101,7 +60,87 @@ namespace GestionAbscence.Migrations
 
                     b.HasKey("CodeEnseignant");
 
+                    b.HasIndex("CodeDepartement");
+
+                    b.HasIndex("CodeGrade");
+
                     b.ToTable("Enseignant");
+                });
+
+            modelBuilder.Entity("FicheAbsence", b =>
+                {
+                    b.Property<int>("IdFicheAbsence")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdFicheAbsence"));
+
+                    b.Property<int>("CodeClasse")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodeEnseignant")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodeMatiere")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdFicheAbsence");
+
+                    b.HasIndex("CodeClasse");
+
+                    b.HasIndex("CodeEnseignant");
+
+                    b.HasIndex("CodeMatiere");
+
+                    b.ToTable("FicheAbsence");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Classe", b =>
+                {
+                    b.Property<int>("CodeClasse")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeClasse"));
+
+                    b.Property<int>("CodeDepartement")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodeGroupe")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomClasse")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodeClasse");
+
+                    b.HasIndex("CodeDepartement");
+
+                    b.HasIndex("CodeGroupe");
+
+                    b.ToTable("Classe");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Departement", b =>
+                {
+                    b.Property<int>("CodeDepartement")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeDepartement"));
+
+                    b.Property<string>("NomDepartement")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CodeDepartement");
+
+                    b.ToTable("Departement");
                 });
 
             modelBuilder.Entity("GestionAbscence.Models.Etudiant", b =>
@@ -145,43 +184,25 @@ namespace GestionAbscence.Migrations
                     b.ToTable("Etudiant");
                 });
 
-            modelBuilder.Entity("GestionAbscence.Models.FicheAbsence", b =>
-                {
-                    b.Property<int>("CodeFicheAbsence")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeFicheAbsence"));
-
-                    b.Property<int>("CodeClasse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodeEnseignant")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodeMatiere")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateJour")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CodeFicheAbsence");
-
-                    b.ToTable("FicheAbsence");
-                });
-
             modelBuilder.Entity("GestionAbscence.Models.FicheAbsenceSeance", b =>
                 {
-                    b.Property<int>("CodeFicheAbsence")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeFicheAbsence"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CodeSeance")
                         .HasColumnType("int");
 
-                    b.HasKey("CodeFicheAbsence");
+                    b.Property<int>("IdFicheAbsence")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodeSeance");
+
+                    b.HasIndex("IdFicheAbsence");
 
                     b.ToTable("FicheAbsenceSeance");
                 });
@@ -222,16 +243,23 @@ namespace GestionAbscence.Migrations
 
             modelBuilder.Entity("GestionAbscence.Models.LigneFicheAbsence", b =>
                 {
-                    b.Property<int>("CodeFicheAbsence")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CodeFicheAbsence"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CodeSeance")
+                    b.Property<int>("IdEtudiant")
                         .HasColumnType("int");
 
-                    b.HasKey("CodeFicheAbsence");
+                    b.Property<int>("IdFicheAbsence")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEtudiant");
+
+                    b.HasIndex("IdFicheAbsence");
 
                     b.ToTable("LigneFicheAbsence");
                 });
@@ -283,6 +311,158 @@ namespace GestionAbscence.Migrations
                     b.HasKey("CodeSeance");
 
                     b.ToTable("Seance");
+                });
+
+            modelBuilder.Entity("Enseignant", b =>
+                {
+                    b.HasOne("GestionAbscence.Models.Departement", "Departement")
+                        .WithMany("Enseignants")
+                        .HasForeignKey("CodeDepartement")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestionAbscence.Models.Grade", "Grade")
+                        .WithMany("Enseignants")
+                        .HasForeignKey("CodeGrade")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Departement");
+
+                    b.Navigation("Grade");
+                });
+
+            modelBuilder.Entity("FicheAbsence", b =>
+                {
+                    b.HasOne("GestionAbscence.Models.Classe", "Classe")
+                        .WithMany("FicheAbsences")
+                        .HasForeignKey("CodeClasse")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Enseignant", "Enseignant")
+                        .WithMany("FicheAbsences")
+                        .HasForeignKey("CodeEnseignant")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestionAbscence.Models.Matiere", "Matiere")
+                        .WithMany("FicheAbsences")
+                        .HasForeignKey("CodeMatiere")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Classe");
+
+                    b.Navigation("Enseignant");
+
+                    b.Navigation("Matiere");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Classe", b =>
+                {
+                    b.HasOne("GestionAbscence.Models.Departement", "Departement")
+                        .WithMany("Classes")
+                        .HasForeignKey("CodeDepartement")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestionAbscence.Models.Groupe", "Groupe")
+                        .WithMany("Classes")
+                        .HasForeignKey("CodeGroupe")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Departement");
+
+                    b.Navigation("Groupe");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.FicheAbsenceSeance", b =>
+                {
+                    b.HasOne("GestionAbscence.Models.Seance", "Seance")
+                        .WithMany("FicheAbsenceSeances")
+                        .HasForeignKey("CodeSeance")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FicheAbsence", "FicheAbsence")
+                        .WithMany("FicheAbsenceSeances")
+                        .HasForeignKey("IdFicheAbsence")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FicheAbsence");
+
+                    b.Navigation("Seance");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.LigneFicheAbsence", b =>
+                {
+                    b.HasOne("GestionAbscence.Models.Etudiant", "Etudiant")
+                        .WithMany("LigneFicheAbsences")
+                        .HasForeignKey("IdEtudiant")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FicheAbsence", "FicheAbsence")
+                        .WithMany("LigneFicheAbsences")
+                        .HasForeignKey("IdFicheAbsence")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Etudiant");
+
+                    b.Navigation("FicheAbsence");
+                });
+
+            modelBuilder.Entity("Enseignant", b =>
+                {
+                    b.Navigation("FicheAbsences");
+                });
+
+            modelBuilder.Entity("FicheAbsence", b =>
+                {
+                    b.Navigation("FicheAbsenceSeances");
+
+                    b.Navigation("LigneFicheAbsences");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Classe", b =>
+                {
+                    b.Navigation("FicheAbsences");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Departement", b =>
+                {
+                    b.Navigation("Classes");
+
+                    b.Navigation("Enseignants");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Etudiant", b =>
+                {
+                    b.Navigation("LigneFicheAbsences");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Grade", b =>
+                {
+                    b.Navigation("Enseignants");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Groupe", b =>
+                {
+                    b.Navigation("Classes");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Matiere", b =>
+                {
+                    b.Navigation("FicheAbsences");
+                });
+
+            modelBuilder.Entity("GestionAbscence.Models.Seance", b =>
+                {
+                    b.Navigation("FicheAbsenceSeances");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,21 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GestionAbscence.Models;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-namespace GestionAbscence.Models
+public class FicheAbsence
 {
-    public class FicheAbsence
-    {
-        [Key]
-        public int CodeFicheAbsence { get; set; }
-        public DateTime DateJour { get; set; }
+    [Key]
+    public int IdFicheAbsence { get; set; }
 
-        [ForeignKey("CodeMatiere")]
-        public int CodeMatiere { get; set; }
+    public string Description { get; set; }
 
-        [ForeignKey("CodeEnseignant")]
-        public int CodeEnseignant { get; set; }
+    [ForeignKey("Classe")]
+    public int CodeClasse { get; set; }
+    public virtual Classe Classe { get; set; }
 
-        [ForeignKey("CodeClasse")]
-        public int CodeClasse { get; set; }
-    }
+    [ForeignKey("Matiere")]
+    public int CodeMatiere { get; set; }
+    public virtual Matiere Matiere { get; set; }
+
+    public virtual ICollection<LigneFicheAbsence> LigneFicheAbsences { get; set; }
+    public virtual ICollection<FicheAbsenceSeance> FicheAbsenceSeances { get; set; }
+
+    // Foreign Key for Enseignant
+    [ForeignKey("Enseignant")]
+    public int CodeEnseignant { get; set; }
+
+    // Navigation property for Enseignant (Many-to-One)
+    public virtual Enseignant Enseignant { get; set; }
 }
