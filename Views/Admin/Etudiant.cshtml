@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Liste Etudiants";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Étudiants</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="min-h-screen bg-gray-100 flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-teal-900 text-white flex flex-col">
+            <div class="text-2xl font-bold p-4">Dashboard</div>
+            <nav class="flex-grow">
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Étudiants</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Matières</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Absences</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-grow p-6">
+            <h1 class="text-2xl font-bold mb-4">Gestion des Étudiants</h1>
+
+            <!-- Bouton Ajouter Étudiant -->
+            <div class="mb-4 flex items-center justify-between">
+                <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
+                    Ajouter un étudiant
+                </button>
+
+                <!-- Champ de recherche -->
+                <input type="text" id="search" placeholder="Rechercher un étudiant..."
+                       class="border rounded-lg px-3 py-2 text-sm w-1/3">
+            </div>
+
+            <!-- Table Étudiants -->
+            <div class="bg-white shadow rounded-lg overflow-hidden">
+                <table class="min-w-full border-collapse border border-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="border border-gray-200 px-4 py-2 text-left">ID</th>
+                            <th class="border border-gray-200 px-4 py-2 text-left">Nom</th>
+                            <th class="border border-gray-200 px-4 py-2 text-left">Prénom</th>
+                            <th class="border border-gray-200 px-4 py-2 text-left">E-mail</th>
+                            <th class="border border-gray-200 px-4 py-2 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table">
+                        <!-- Exemple de lignes -->
+                        <tr>
+                            <td class="border border-gray-200 px-4 py-2">1</td>
+                            <td class="border border-gray-200 px-4 py-2">Doe</td>
+                            <td class="border border-gray-200 px-4 py-2">John</td>
+                            <td class="border border-gray-200 px-4 py-2">john.doe@example.com</td>
+                            <td class="border border-gray-200 px-4 py-2">
+                                <button class="bg-blue-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">
+                                    Voir
+                                </button>
+                                <button class="bg-teal-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">
+                                    Modifier
+                                </button>
+                                <button class="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600">
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-200 px-4 py-2">2</td>
+                            <td class="border border-gray-200 px-4 py-2">Smith</td>
+                            <td class="border border-gray-200 px-4 py-2">Anna</td>
+                            <td class="border border-gray-200 px-4 py-2">anna.smith@example.com</td>
+                            <td class="border border-gray-200 px-4 py-2">
+                                <button class="bg-blue-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">
+                                    Voir
+                                </button>
+                                <button class="bg-teal-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">
+                                    Modifier
+                                </button>
+                                <button class="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600">
+                                    Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Ajoutez d'autres lignes ici -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const tableRows = document.querySelectorAll('#student-table tr');
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+
+            tableRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase()).join(' ');
+
+                if (rowText.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+

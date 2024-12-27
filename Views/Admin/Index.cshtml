@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-no-wrap">
+        <!-- Sidebar -->
+        <div class="w-64 bg-teal-800 min-h-screen text-white">
+            <div class="p-5 text-center text-lg font-bold">Admin Dashboard</div>
+            <ul>
+                <li class="px-6 py-2 hover:bg-teal-600 cursor-pointer"><a href="/Admin/Etudiants">Étudiants</a></li>
+                <li class="px-6 py-2 hover:bg-teal-600 cursor-pointer"><a href="#matieres">Matières</a></li>
+                <li class="px-6 py-2 hover:bg-teal-600 cursor-pointer"><a href="#absences">Absences</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-full">
+            <div class="bg-white shadow-md p-4">
+                <h1 class="text-xl font-bold text-gray-800">Bienvenue, Admin</h1>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h2 class="text-2xl font-bold text-teal-800">150</h2>
+                    <p class="text-gray-600">Étudiants</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h2 class="text-2xl font-bold text-teal-800">12</h2>
+                    <p class="text-gray-600">Matières</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6 text-center">
+                    <h2 class="text-2xl font-bold text-teal-800">5</h2>
+                    <p class="text-gray-600">Absences Aujourd'hui</p>
+                </div>
+            </div>
+
+            <!-- Section Absences -->
+            <section id="absences" class="p-4">
+                <h2 class="text-lg font-bold text-gray-800">Absences</h2>
+                <table class="w-full bg-white shadow-md rounded-lg mt-4">
+                    <thead class="bg-teal-800 text-white">
+                        <tr>
+                            <th class="py-2 px-4">ID Étudiant</th>
+                            <th class="py-2 px-4">Nom</th>
+                            <th class="py-2 px-4">Matière</th>
+                            <th class="py-2 px-4">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="py-2 px-4 text-center">1</td>
+                            <td class="py-2 px-4">Doe John</td>
+                            <td class="py-2 px-4">Mathématiques</td>
+                            <td class="py-2 px-4">2024-12-25</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 px-4 text-center">2</td>
+                            <td class="py-2 px-4">Smith Jane</td>
+                            <td class="py-2 px-4">Physique</td>
+                            <td class="py-2 px-4">2024-12-25</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+</body>
+
