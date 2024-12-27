@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using GestionAbscence.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging; // Ensure this using directive is present
 
 namespace GestionAbscence.Controllers
 {
@@ -13,7 +14,7 @@ namespace GestionAbscence.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
