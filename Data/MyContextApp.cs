@@ -86,8 +86,25 @@ namespace GestionAbscence.Data
                 .WithOne(e => e.Grade)       // Chaque Enseignant a un Grade
                 .HasForeignKey(e => e.CodeGrade)  // Foreign Key dans Enseignant
                 .OnDelete(DeleteBehavior.Restrict); // Empêche la suppression en cascade
-        }
 
+            // One-to-One relationship between User and Enseignant
+            modelBuilder.Entity<Enseignant>()
+                .HasOne(e => e.User)
+                .WithOne()
+                .HasForeignKey<Enseignant>(e => e.UserId);
+
+            // One-to-One relationship between User and Etudiant
+            modelBuilder.Entity<Etudiant>()
+                .HasOne(e => e.User)
+                .WithOne()
+                .HasForeignKey<Etudiant>(e => e.UserId);
+
+            // One-to-One relationship between User and Admin
+            modelBuilder.Entity<Admin>()
+                .HasOne(a => a.User)
+                .WithOne()
+                .HasForeignKey<Admin>(a => a.UserId);  // Assuming UserId is the foreign key in Admin
+        }
 
         // DbSets for your entities
         public DbSet<Classe> Classe { get; set; }
@@ -101,5 +118,6 @@ namespace GestionAbscence.Data
         public DbSet<LigneFicheAbsence> LigneFicheAbsence { get; set; }
         public DbSet<Matiere> Matiere { get; set; }
         public DbSet<Seance> Seance { get; set; }
+        public DbSet<Admin> Admin { get; set; }
     }
 }
