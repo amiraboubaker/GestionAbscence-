@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace GestionAbscence.Models
 {
@@ -21,5 +23,10 @@ namespace GestionAbscence.Models
 
         // Navigation property for FicheAbsences via LigneFicheAbsence
         public virtual ICollection<LigneFicheAbsence> LigneFicheAbsences { get; set; }
+
+        // Relationship to the User class (One-to-One)
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public virtual User User { get; set; }
     }
 }
