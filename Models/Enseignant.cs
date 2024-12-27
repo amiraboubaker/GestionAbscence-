@@ -37,6 +37,7 @@ namespace GestionAbscence.Models
         public int CodeGrade { get; set; }
         public virtual Grade Grade { get; set; }
 
-        public virtual ICollection<FicheAbsence> FicheAbsences { get; set; }
+        // Relation 1-N avec FicheAbsence
+        public virtual ICollection<FicheAbsence> FicheAbsences { get; set; } = new List<FicheAbsence>();
     }
 }

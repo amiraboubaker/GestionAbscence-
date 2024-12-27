@@ -13,7 +13,7 @@ namespace GestionAbscence.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Restrict cascade deletes for all relationships to avoid accidental deletions
+            // Classe relationships
             modelBuilder.Entity<Classe>()
                 .HasOne(c => c.Departement)
                 .WithMany(d => d.Classes)
@@ -26,6 +26,7 @@ namespace GestionAbscence.Data
                 .HasForeignKey(c => c.CodeGroupe)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // FicheAbsence relationships
             modelBuilder.Entity<FicheAbsence>()
                 .HasOne(f => f.Classe)
                 .WithMany(c => c.FicheAbsences)
@@ -38,6 +39,7 @@ namespace GestionAbscence.Data
                 .HasForeignKey(f => f.CodeMatiere)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // LigneFicheAbsence relationships
             modelBuilder.Entity<LigneFicheAbsence>()
                 .HasOne(l => l.FicheAbsence)
                 .WithMany(f => f.LigneFicheAbsences)
@@ -50,6 +52,7 @@ namespace GestionAbscence.Data
                 .HasForeignKey(l => l.IdEtudiant)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // FicheAbsenceSeance relationships
             modelBuilder.Entity<FicheAbsenceSeance>()
                 .HasOne(fas => fas.FicheAbsence)
                 .WithMany(f => f.FicheAbsenceSeances)
@@ -62,6 +65,7 @@ namespace GestionAbscence.Data
                 .HasForeignKey(fas => fas.CodeSeance)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Enseignant relationships
             modelBuilder.Entity<Enseignant>()
                 .HasOne(e => e.Departement)
                 .WithMany(d => d.Enseignants)
@@ -74,6 +78,7 @@ namespace GestionAbscence.Data
                 .HasForeignKey(f => f.CodeEnseignant)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Grade relationships
             modelBuilder.Entity<Grade>()
                 .HasMany(g => g.Enseignants)
                 .WithOne(e => e.Grade)

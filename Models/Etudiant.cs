@@ -36,6 +36,7 @@ namespace GestionAbscence.Models
         [Phone]
         public string Tel { get; set; }
 
+        // Assurez-vous que la propriété suivante est correctement écrite
         public virtual ICollection<LigneFicheAbsence> LigneFicheAbsences { get; set; }
     }
 }
