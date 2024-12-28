@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestionAbscence")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f2f3ec6321e26ca2b11036408cda32d57bcfd6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+18a64b61e94bbe11fda87e087eacbe0b9c77e044")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestionAbscence")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestionAbscence")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

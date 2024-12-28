@@ -30,4 +30,9 @@ app.MapStaticAssets();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Login}/{id?}");
+
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "Admin/{action=Index}/{id?}"); 
+
 app.Run();
