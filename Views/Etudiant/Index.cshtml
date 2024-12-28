@@ -1,4 +1,4 @@
-﻿@model List<GestionAbscence.Controllers.EtudiantViewModel>
+﻿@model List<GestionAbscence.Models.Etudiant>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,11 +25,10 @@
             <h1 class="text-2xl font-bold mb-4">Gestion des Étudiants</h1>
 
             <div class="mb-4 flex items-center justify-between">
-                <button class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
+                <a href="@Url.Action("Create", "Etudiant")" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
                     Ajouter un étudiant
-                </button>
-                <input type="text" id="search" placeholder="Rechercher un étudiant..."
-                       class="border rounded-lg px-3 py-2 text-sm w-1/3">
+                </a>
+                <input type="text" id="search" placeholder="Rechercher un étudiant..." class="border rounded-lg px-3 py-2 text-sm w-1/3">
             </div>
 
             <div class="bg-white shadow rounded-lg overflow-hidden">
@@ -50,11 +49,11 @@
                                 <td class="border border-gray-200 px-4 py-2">@etudiant.Id</td>
                                 <td class="border border-gray-200 px-4 py-2">@etudiant.Nom</td>
                                 <td class="border border-gray-200 px-4 py-2">@etudiant.Prenom</td>
-                                <td class="border border-gray-200 px-4 py-2">@etudiant.Email</td>
+                                <td class="border border-gray-200 px-4 py-2">@etudiant.Mail</td>
                                 <td class="border border-gray-200 px-4 py-2">
-                                    <button class="bg-blue-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">Voir</button>
-                                    <button class="bg-teal-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">Modifier</button>
-                                    <button class="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600">Supprimer</button>
+                                    <a href="@Url.Action("Details", "Etudiant", new { id = etudiant.Id })" class="bg-blue-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">Voir</a>
+                                    <a href="@Url.Action("Edit", "Etudiant", new { id = etudiant.Id })" class="bg-teal-500 text-white py-1 px-2 rounded-lg hover:bg-teal-600">Modifier</a>
+                                    <a href="javascript:void(0);" onclick="if(confirm('Êtes-vous sûr de vouloir supprimer cet étudiant?')) window.location='@Url.Action("Delete", "Etudiant", new { id = etudiant.Id })';" class="bg-red-500 text-white py-1 px-2 rounded-lg hover:bg-red-600">Supprimer</a>
                                 </td>
                             </tr>
                         }

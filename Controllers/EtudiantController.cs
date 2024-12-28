@@ -1,30 +1,142 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GestionAbscence.Data;
 using GestionAbscence.Models;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace GestionAbscence.Controllers
+public class EtudiantController : Controller
 {
-    public class EtudiantController : Controller
-    {
-        public IActionResult Index()
-        {
-            // Simulez une liste d'étudiants pour la démonstration
-            var etudiants = new List<EtudiantViewModel>
-            {
-                new EtudiantViewModel { Id = 1, Nom = "Doe", Prenom = "John", Email = "john.doe@example.com" },
-                new EtudiantViewModel { Id = 2, Nom = "Smith", Prenom = "Anna", Email = "anna.smith@example.com" }
-            };
+    private readonly MyContextApp _context;
 
-            return View(etudiants);
-        }
+    public EtudiantController(MyContextApp context)
+    {
+        _context = context;
     }
 
-    // Modèle pour représenter un étudiant
-    public class EtudiantViewModel
+    // GET: Etudiant
+    public async Task<IActionResult> Index()
     {
-        public int Id { get; set; }
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string Email { get; set; }
+        return View(await _context.Etudiant.ToListAsync());
+    }
+
+    // GET: Etudiant/Create
+    public IActionResult Create()
+    {
+        var etudiant = new Etudiant(); // Ensure this is not null
+        return View(etudiant); // Pass a properly initialized model
+    }
+
+    // POST: Etudiant/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Mail")] Etudiant etudiant)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Add(etudiant);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(etudiant);
+    }
+
+    // GET: Etudiant/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var etudiant = await _context.Etudiant.FindAsync(id);
+        if (etudiant == null)
+        {
+            return NotFound();
+        }
+        return View(etudiant);
+    }
+
+    // POST: Etudiant/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Mail")] Etudiant etudiant)
+    {
+        if (id != etudiant.Id)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(etudiant);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EtudiantExists(etudiant.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(etudiant);
+    }
+
+    // GET: Etudiant/Details/5
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var etudiant = await _context.Etudiant
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (etudiant == null)
+        {
+            return NotFound();
+        }
+
+        return View(etudiant);
+    }
+
+    // GET: Etudiant/Delete/5
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var etudiant = await _context.Etudiant
+            .FirstOrDefaultAsync(m => m.Id == id);
+        if (etudiant == null)
+        {
+            return NotFound();
+        }
+
+        return View(etudiant);
+    }
+
+    // POST: Etudiant/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var etudiant = await _context.Etudiant.FindAsync(id);
+        _context.Etudiant.Remove(etudiant);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool EtudiantExists(int id)
+    {
+        return _context.Etudiant.Any(e => e.Id == id);
     }
 }

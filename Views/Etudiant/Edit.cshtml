@@ -1,0 +1,46 @@
+﻿@model GestionAbscence.Models.Etudiant
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un Étudiant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-gray-100 flex">
+        <div class="w-64 bg-teal-900 text-white flex flex-col">
+            <div class="text-2xl font-bold p-4">Dashboard</div>
+            <nav class="flex-grow">
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Étudiants</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Matières</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Absences</a>
+            </nav>
+        </div>
+
+        <div class="flex-grow p-6">
+            <h1 class="text-2xl font-bold mb-4">Modifier un Étudiant</h1>
+
+            <form method="post" class="bg-white shadow rounded-lg p-6">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="mb-4">
+                    <label for="Nom" class="block text-sm font-medium text-gray-700">Nom</label>
+                    <input type="text" id="Nom" name="Nom" value="@Model.Nom" class="border rounded-lg px-3 py-2 w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label for="Prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
+                    <input type="text" id="Prenom" name="Prenom" value="@Model.Prenom" class="border rounded-lg px-3 py-2 w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label for="Mail" class="block text-sm font-medium text-gray-700">E-mail</label>
+                    <input type="email" id="Mail" name="Mail" value="@Model.Mail" class="border rounded-lg px-3 py-2 w-full" required />
+                </div>
+                <div class="mb-4 text-right">
+                    <button type="submit" class="bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
