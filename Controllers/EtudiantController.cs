@@ -28,16 +28,26 @@ public class EtudiantController : Controller
     // POST: Etudiant/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Mail")] Etudiant etudiant)
+    public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Mail,DateNaissance,Classe,NumInscription,Adresse,Tel")] Etudiant etudiant)
     {
         if (ModelState.IsValid)
         {
-            _context.Add(etudiant);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                _context.Add(etudiant); // Add the Etudiant object to the context
+                await _context.SaveChangesAsync(); // Save changes to the database
+                return RedirectToAction(nameof(Index)); // Redirect to the index view (listing page)
+            }
+            catch (Exception ex)
+            {
+                // You can log the error or handle exceptions here
+                ModelState.AddModelError("", "An error occurred while saving the data.");
+            }
         }
-        return View(etudiant);
+        return View(etudiant); // Return to the form with error messages if the model is invalid
     }
+
+
 
     // GET: Etudiant/Edit/5
     public async Task<IActionResult> Edit(int? id)
