@@ -25,7 +25,7 @@
             <div class="bg-white shadow rounded-lg p-6">
                 <p>Êtes-vous sûr de vouloir supprimer l'étudiant <strong>@Model.Nom @Model.Prenom</strong> ?</p>
 
-                <form method="post" class="mt-4">
+                <form method="post" asp-action="Delete">
                     <input type="hidden" name="Id" value="@Model.Id" />
                     <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">Supprimer</button>
                     <a href="@Url.Action("Index", "Etudiant")" class="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600">Annuler</a>

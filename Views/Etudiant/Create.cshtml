@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="min-h-screen bg-gray-100 flex">
+        <!-- Sidebar -->
         <div class="w-64 bg-teal-900 text-white flex flex-col">
             <div class="text-2xl font-bold p-4">Dashboard</div>
             <nav class="flex-grow">
@@ -19,45 +20,79 @@
             </nav>
         </div>
 
+        <!-- Content -->
         <div class="flex-grow p-6">
             <h1 class="text-2xl font-bold mb-4">Ajouter un Étudiant</h1>
 
-            <form asp-action="Create" method="post">
-                <div class="form-group">
-                    <label for="Nom">Nom</label>
-                    <input type="text" class="form-control" id="Nom" name="Nom" value="@Model.Nom" required />
+            <form asp-action="Create" method="post" class="space-y-6">
+                @Html.AntiForgeryToken()
+
+                <!-- Nom -->
+                <div>
+                    <label for="Nom" class="block text-gray-700 font-bold">Nom</label>
+                    <input type="text" id="Nom" name="Nom" value="@Model?.Nom" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="Nom" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="Prenom">Prénom</label>
-                    <input type="text" class="form-control" id="Prenom" name="Prenom" value="@Model.Prenom" required />
+
+                <!-- Prénom -->
+                <div>
+                    <label for="Prenom" class="block text-gray-700 font-bold">Prénom</label>
+                    <input type="text" id="Prenom" name="Prenom" value="@Model.Prenom" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="Prenom" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="Mail">E-mail</label>
-                    <input type="email" class="form-control" id="Mail" name="Mail" value="@Model.Mail" required />
+
+                <!-- E-mail -->
+                <div>
+                    <label for="Mail" class="block text-gray-700 font-bold">E-mail</label>
+                    <input type="email" id="Mail" name="Mail" value="@Model.Mail" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="Mail" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="DateNaissance">Date Naissance</label>
-                    <input type="date" class="form-control" id="DateNaissance" name="DateNaissance" value="@Model.DateNaissance" required />
+
+                <!-- Date Naissance -->
+                <div>
+                    <label for="DateNaissance" class="block text-gray-700 font-bold">Date Naissance</label>
+                    <input type="datetime" id="DateNaissance" name="DateNaissance" value="@Model.DateNaissance" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="DateNaissance" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="Classe">Classe</label>
-                    <input type="text" class="form-control" id="Classe" name="Classe" value="@Model.Classe" required />
+
+                <!-- Classe -->
+                <div>
+                    <label for="CodeClasse" class="block text-gray-700 font-bold">Classe</label>
+                    <input type="number" id="Classe" name="CodeClasse" value="@Model.CodeClasse" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="CodeClasse" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="NumInscription">Num Inscription</label>
-                    <input type="text" class="form-control" id="NumInscription" name="NumInscription" value="@Model.NumInscription" required />
+
+                <!-- Num Inscription -->
+                <div>
+                    <label for="NumInscription" class="block text-gray-700 font-bold">Num Inscription</label>
+                    <input type="number" id="NumInscription" name="NumInscription" value="@Model.NumInscription" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="NumInscription" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="Adresse">Adresse</label>
-                    <input type="text" class="form-control" id="Adresse" name="Adresse" value="@Model.Adresse" required />
+
+                <!-- Adresse -->
+                <div>
+                    <label for="Adresse" class="block text-gray-700 font-bold">Adresse</label>
+                    <input type="text" id="Adresse" name="Adresse" value="@Model.Adresse" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="Adresse" class="text-red-500 text-sm"></span>
                 </div>
-                <div class="form-group">
-                    <label for="Tel">Tel</label>
-                    <input type="text" class="form-control" id="Tel" name="Tel" value="@Model.Tel" required />
+
+                <!-- Tel -->
+                <div>
+                    <label for="Tel" class="block text-gray-700 font-bold">Tel</label>
+                    <input type="number" id="Tel" name="Tel" value="@Model.Tel" class="w-full p-2 border border-gray-300 rounded" required />
+                    <span asp-validation-for="Tel" class="text-red-500 text-sm"></span>
                 </div>
-                <button type="submit" class="btn btn-primary">Ajouter</button>
+
+                <!-- Submit Button -->
+                <button type="submit" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Ajouter</button>
             </form>
         </div>
     </div>
+
+    <!-- Scripts Section -->
+    @section Scripts {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
+    }
 </body>
 </html>

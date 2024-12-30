@@ -15,53 +15,63 @@ public class EtudiantController : Controller
     // GET: Etudiant
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Etudiant.ToListAsync());
+        // Fetch all students from the database
+        var etudiants = await _context.Etudiant.ToListAsync().ConfigureAwait(false);
+        return View(etudiants);
     }
 
     // GET: Etudiant/Create
     public IActionResult Create()
     {
-        var etudiant = new Etudiant(); // Ensure this is not null
-        return View(etudiant); // Pass a properly initialized model
+        var etudiant = new Etudiant(); 
+        return View(etudiant);
     }
 
     // POST: Etudiant/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Nom,Prenom,Mail,DateNaissance,Classe,NumInscription,Adresse,Tel")] Etudiant etudiant)
+    public async Task<IActionResult> Create(Etudiant etudiant)
     {
         if (ModelState.IsValid)
         {
             try
             {
-                _context.Add(etudiant); // Add the Etudiant object to the context
-                await _context.SaveChangesAsync(); // Save changes to the database
-                return RedirectToAction(nameof(Index)); // Redirect to the index view (listing page)
+                var e = new Etudiant{
+    Nom = "Doe",
+    Prenom = "John",
+    Mail = "john.doe@example.com",
+    DateNaissance = new DateTime(1995, 5, 15),
+    CodeClasse = 1,
+    NumInscription = 12345,
+    Adresse = "123 Rue de Paris",
+    Tel= "123456789"
+};
+                _context.Add(e);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                // You can log the error or handle exceptions here
-                ModelState.AddModelError("", "An error occurred while saving the data.");
+                ModelState.AddModelError("", $"Erreur lors de la création : {ex.Message}");
             }
         }
-        return View(etudiant); // Return to the form with error messages if the model is invalid
+        return View(etudiant);
     }
-
-
 
     // GET: Etudiant/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
+        if (!id.HasValue)
         {
             return NotFound();
         }
 
-        var etudiant = await _context.Etudiant.FindAsync(id);
+        var etudiant = await _context.Etudiant.FindAsync(id.Value).ConfigureAwait(false);
         if (etudiant == null)
         {
             return NotFound();
         }
+
         return View(etudiant);
     }
 
@@ -80,7 +90,8 @@ public class EtudiantController : Controller
             try
             {
                 _context.Update(etudiant);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+                return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -88,12 +99,8 @@ public class EtudiantController : Controller
                 {
                     return NotFound();
                 }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
-            return RedirectToAction(nameof(Index));
         }
         return View(etudiant);
     }
@@ -101,13 +108,15 @@ public class EtudiantController : Controller
     // GET: Etudiant/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null)
+        if (!id.HasValue)
         {
             return NotFound();
         }
 
         var etudiant = await _context.Etudiant
-            .FirstOrDefaultAsync(m => m.Id == id);
+            .FirstOrDefaultAsync(m => m.Id == id.Value)
+            .ConfigureAwait(false);
+
         if (etudiant == null)
         {
             return NotFound();
@@ -119,13 +128,15 @@ public class EtudiantController : Controller
     // GET: Etudiant/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null)
+        if (!id.HasValue)
         {
             return NotFound();
         }
 
         var etudiant = await _context.Etudiant
-            .FirstOrDefaultAsync(m => m.Id == id);
+            .FirstOrDefaultAsync(m => m.Id == id.Value)
+            .ConfigureAwait(false);
+
         if (etudiant == null)
         {
             return NotFound();
@@ -139,12 +150,16 @@ public class EtudiantController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var etudiant = await _context.Etudiant.FindAsync(id);
-        _context.Etudiant.Remove(etudiant);
-        await _context.SaveChangesAsync();
+        var etudiant = await _context.Etudiant.FindAsync(id).ConfigureAwait(false);
+        if (etudiant != null)
+        {
+            _context.Etudiant.Remove(etudiant);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
         return RedirectToAction(nameof(Index));
     }
 
+    // Helper method to check if a student exists
     private bool EtudiantExists(int id)
     {
         return _context.Etudiant.Any(e => e.Id == id);

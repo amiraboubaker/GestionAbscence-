@@ -22,23 +22,37 @@
         <div class="flex-grow p-6">
             <h1 class="text-2xl font-bold mb-4">Modifier un Étudiant</h1>
 
-            <form method="post" class="bg-white shadow rounded-lg p-6">
+            <form asp-action="Edit" method="post">
                 <input type="hidden" name="Id" value="@Model.Id" />
-                <div class="mb-4">
-                    <label for="Nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" id="Nom" name="Nom" value="@Model.Nom" class="border rounded-lg px-3 py-2 w-full" required />
+                <div class="form-group">
+                    <label for="Nom">Nom</label>
+                    <input type="text" class="form-control" id="Nom" name="Nom" value="@Model.Nom" required />
                 </div>
-                <div class="mb-4">
-                    <label for="Prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
-                    <input type="text" id="Prenom" name="Prenom" value="@Model.Prenom" class="border rounded-lg px-3 py-2 w-full" required />
+                <div class="form-group">
+                    <label for="Prenom">Prénom</label>
+                    <input type="text" class="form-control" id="Prenom" name="Prenom" value="@Model.Prenom" required />
                 </div>
-                <div class="mb-4">
-                    <label for="Mail" class="block text-sm font-medium text-gray-700">E-mail</label>
-                    <input type="email" id="Mail" name="Mail" value="@Model.Mail" class="border rounded-lg px-3 py-2 w-full" required />
+                <div class="form-group">
+                    <label for="Mail">E-mail</label>
+                    <input type="email" class="form-control" id="Mail" name="Mail" value="@Model.Mail" required />
                 </div>
-                <div class="mb-4 text-right">
-                    <button type="submit" class="bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600">Modifier</button>
+                <div class="form-group">
+                    <label for="Classe">Classe</label>
+                    <input type="text" class="form-control" id="Classe" name="Classe" value="@Model.Classe" required />
                 </div>
+                <div class="form-group">
+                    <label for="NumInscription">Num Inscription</label>
+                    <input type="text" class="form-control" id="NumInscription" name="NumInscription" value="@Model.NumInscription" required />
+                </div>
+                <div class="form-group">
+                    <label for="Adresse">Adresse</label>
+                    <input type="text" class="form-control" id="Adresse" name="Adresse" value="@Model.Adresse" required />
+                </div>
+                <div class="form-group">
+                    <label for="Tel">Tel</label>
+                    <input type="text" class="form-control" id="Tel" name="Tel" value="@Model.Tel" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Modifier</button>
             </form>
         </div>
     </div>

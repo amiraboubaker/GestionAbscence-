@@ -30,7 +30,8 @@ app.UseStaticFiles();
 // Define routing
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Login}/{id?}");
+    //pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Etudiant}/{action=Create}/");
 
 app.MapControllerRoute(
     name: "admin",
@@ -39,5 +40,17 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "etudiant",
     pattern: "Etudiant/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "etudiant",
+    pattern: "Etudiant/{action=Create}/");
+
+app.MapControllerRoute(
+    name: "etudiant",
+    pattern: "Etudiant/{action=Edit}/{id?}");
+
+app.MapControllerRoute(
+    name: "etudiant",
+    pattern: "Etudiant/{action=Delete}/{id?}");
 
 app.Run();
