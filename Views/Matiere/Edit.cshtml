@@ -1,0 +1,25 @@
+﻿@model GestionAbscence.Models.Matiere
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Modifier une Matière</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Modifier une Matière</h1>
+        <form asp-action="Edit" method="post" class="space-y-6">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CodeMatiere)
+            <div>
+                <label for="NomMatiere" class="block text-gray-700 font-bold">Nom Matière</label>
+                @Html.TextBoxFor(model => model.NomMatiere, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                @Html.ValidationMessageFor(model => model.NomMatiere, "", new { @class = "text-red-500 text-sm" })
+            </div>
+            <!-- Other fields... -->
+            <button type="submit" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Modifier</button>
+        </form>
+    </div>
+</body>
+</html>

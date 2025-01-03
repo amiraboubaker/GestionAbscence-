@@ -53,4 +53,35 @@ app.MapControllerRoute(
     name: "etudiant",
     pattern: "Etudiant/{action=Delete}/{id?}");
 
+app.MapControllerRoute(
+    name: "matiere",
+    pattern: "Matiere/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "matiere",
+    pattern: "Matiere/{action=Create}/{id?}");
+
+app.MapControllerRoute(
+    name: "matiere",
+    pattern: "Matiere/{action=Edit}/{id?}");
+
+app.MapControllerRoute(
+    name: "matiere",
+    pattern: "Matiere/{action=Delete}/{id?}");
+
+app.MapControllerRoute(
+    name: "absence",
+    pattern: "Absence/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "absence",
+    pattern: "Absence/{action=Create}/{id?}");
+
+app.MapControllerRoute(
+    name: "absence",
+    pattern: "Absence/{action=Edit}/{id?}");
+
+app.MapControllerRoute(
+    name: "absence",
+    pattern: "Absence/{action=Delete}/{id?}");
 app.Run();

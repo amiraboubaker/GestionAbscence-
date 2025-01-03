@@ -26,61 +26,63 @@
 
             <form asp-action="Create" method="post" class="space-y-6">
                 @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-red-500 text-sm mb-4" })
 
                 <!-- Nom -->
                 <div>
                     <label for="Nom" class="block text-gray-700 font-bold">Nom</label>
-                    <input type="text" id="Nom" name="Nom" value="@Model?.Nom" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="Nom" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.Nom, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Prénom -->
                 <div>
                     <label for="Prenom" class="block text-gray-700 font-bold">Prénom</label>
-                    <input type="text" id="Prenom" name="Prenom" value="@Model.Prenom" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="Prenom" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.Prenom, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- E-mail -->
                 <div>
                     <label for="Mail" class="block text-gray-700 font-bold">E-mail</label>
-                    <input type="email" id="Mail" name="Mail" value="@Model.Mail" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="Mail" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.Mail, new { type = "email", @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Date Naissance -->
                 <div>
                     <label for="DateNaissance" class="block text-gray-700 font-bold">Date Naissance</label>
-                    <input type="datetime" id="DateNaissance" name="DateNaissance" value="@Model.DateNaissance" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="DateNaissance" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.DateNaissance, new { type = "datetime-local", @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.DateNaissance, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Classe -->
                 <div>
                     <label for="CodeClasse" class="block text-gray-700 font-bold">Classe</label>
-                    <input type="number" id="Classe" name="CodeClasse" value="@Model.CodeClasse" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="CodeClasse" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.CodeClasse, new { type = "number", @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.CodeClasse, "", new { @class = "text-red-500 text-sm" })
                 </div>
+
 
                 <!-- Num Inscription -->
                 <div>
                     <label for="NumInscription" class="block text-gray-700 font-bold">Num Inscription</label>
-                    <input type="number" id="NumInscription" name="NumInscription" value="@Model.NumInscription" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="NumInscription" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.NumInscription, new { type = "number", @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NumInscription, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Adresse -->
                 <div>
                     <label for="Adresse" class="block text-gray-700 font-bold">Adresse</label>
-                    <input type="text" id="Adresse" name="Adresse" value="@Model.Adresse" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="Adresse" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.Adresse, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Tel -->
                 <div>
                     <label for="Tel" class="block text-gray-700 font-bold">Tel</label>
-                    <input type="number" id="Tel" name="Tel" value="@Model.Tel" class="w-full p-2 border border-gray-300 rounded" required />
-                    <span asp-validation-for="Tel" class="text-red-500 text-sm"></span>
+                    @Html.TextBoxFor(model => model.Tel, new { type = "number", @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-red-500 text-sm" })
                 </div>
 
                 <!-- Submit Button -->
@@ -88,11 +90,5 @@
             </form>
         </div>
     </div>
-
-    <!-- Scripts Section -->
-    @section Scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
-    }
 </body>
 </html>

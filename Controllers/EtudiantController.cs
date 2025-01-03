@@ -2,6 +2,8 @@
 using GestionAbscence.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class EtudiantController : Controller
 {
@@ -13,48 +15,57 @@ public class EtudiantController : Controller
     }
 
     // GET: Etudiant
+    // GET: Etudiant
     public async Task<IActionResult> Index()
     {
-        // Fetch all students from the database
-        var etudiants = await _context.Etudiant.ToListAsync().ConfigureAwait(false);
+        // Inclure les relations avec la classe et convertir NumInscription en string
+        var etudiants = await _context.Etudiant
+            .Select(e => new Etudiant
+            {
+                Id = e.Id,
+                Nom = e.Nom,
+                Prenom = e.Prenom,
+                DateNaissance = e.DateNaissance,
+                CodeClasse = e.CodeClasse,
+                NumInscription = e.NumInscription,  // Laisser en tant qu'int ici
+                Adresse = e.Adresse,
+                Mail = e.Mail,
+                Tel = e.Tel
+            })
+            .ToListAsync();
+
+        // Retourner la vue avec la liste des étudiants
         return View(etudiants);
     }
 
+
     // GET: Etudiant/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        var etudiant = new Etudiant(); 
-        return View(etudiant);
+        ViewData["Classes"] = await _context.Classe.ToListAsync(); // Charger les classes pour un DropDownList
+        return View();
     }
 
     // POST: Etudiant/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Etudiant etudiant)
+    public async Task<IActionResult> Create([Bind("Nom,Prenom,DateNaissance,CodeClasse,NumInscription,Adresse,Mail,Tel")] Etudiant etudiant)
     {
         if (ModelState.IsValid)
         {
             try
             {
-                var e = new Etudiant{
-    Nom = "Doe",
-    Prenom = "John",
-    Mail = "john.doe@example.com",
-    DateNaissance = new DateTime(1995, 5, 15),
-    CodeClasse = 1,
-    NumInscription = 12345,
-    Adresse = "123 Rue de Paris",
-    Tel= "123456789"
-};
-                _context.Add(e);
-                await _context.SaveChangesAsync().ConfigureAwait(false);
+                _context.Add(etudiant);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", $"Erreur lors de la création : {ex.Message}");
+                ModelState.AddModelError(string.Empty, $"Une erreur est survenue : {ex.Message}");
             }
         }
+
+        ViewData["Classes"] = await _context.Classe.ToListAsync(); // Recharger les classes en cas d'échec
         return View(etudiant);
     }
 
@@ -66,19 +77,20 @@ public class EtudiantController : Controller
             return NotFound();
         }
 
-        var etudiant = await _context.Etudiant.FindAsync(id.Value).ConfigureAwait(false);
+        var etudiant = await _context.Etudiant.FindAsync(id.Value);
         if (etudiant == null)
         {
             return NotFound();
         }
 
+        ViewData["Classes"] = await _context.Classe.ToListAsync();
         return View(etudiant);
     }
 
     // POST: Etudiant/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,Mail")] Etudiant etudiant)
+    public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Prenom,DateNaissance,CodeClasse,NumInscription,Adresse,Mail,Tel")] Etudiant etudiant)
     {
         if (id != etudiant.Id)
         {
@@ -90,7 +102,7 @@ public class EtudiantController : Controller
             try
             {
                 _context.Update(etudiant);
-                await _context.SaveChangesAsync().ConfigureAwait(false);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
@@ -102,6 +114,8 @@ public class EtudiantController : Controller
                 throw;
             }
         }
+
+        ViewData["Classes"] = await _context.Classe.ToListAsync();
         return View(etudiant);
     }
 
@@ -114,8 +128,8 @@ public class EtudiantController : Controller
         }
 
         var etudiant = await _context.Etudiant
-            .FirstOrDefaultAsync(m => m.Id == id.Value)
-            .ConfigureAwait(false);
+            .Include(e => e.Classe)
+            .FirstOrDefaultAsync(m => m.Id == id.Value);
 
         if (etudiant == null)
         {
@@ -134,8 +148,8 @@ public class EtudiantController : Controller
         }
 
         var etudiant = await _context.Etudiant
-            .FirstOrDefaultAsync(m => m.Id == id.Value)
-            .ConfigureAwait(false);
+            .Include(e => e.Classe)
+            .FirstOrDefaultAsync(m => m.Id == id.Value);
 
         if (etudiant == null)
         {
@@ -150,11 +164,18 @@ public class EtudiantController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var etudiant = await _context.Etudiant.FindAsync(id).ConfigureAwait(false);
+        var etudiant = await _context.Etudiant.FindAsync(id);
         if (etudiant != null)
         {
-            _context.Etudiant.Remove(etudiant);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            try
+            {
+                _context.Etudiant.Remove(etudiant);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Une erreur est survenue : {ex.Message}");
+            }
         }
         return RedirectToAction(nameof(Index));
     }

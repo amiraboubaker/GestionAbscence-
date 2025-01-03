@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GestionAbscence.Models.FicheAbsenceSeance>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Liste des Absences</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Liste des Absences</h1>
+        <a href="/Absence/Create" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Ajouter une absence</a>
+        <table class="table-auto w-full mt-4 border-collapse border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2">Description</th>
+                    <th class="border border-gray-300 px-4 py-2">Classe</th>
+                    <th class="border border-gray-300 px-4 py-2">Matière</th>
+                    <th class="border border-gray-300 px-4 py-2">Enseignant</th>
+                    <th class="border border-gray-300 px-4 py-2">Séance</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var absenceSeance in Model)
+                {
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2">@absenceSeance.FicheAbsence.Description</td>
+                        <td class="border border-gray-300 px-4 py-2">@absenceSeance.FicheAbsence.Classe?.NomClasse</td>
+                        <td class="border border-gray-300 px-4 py-2">@absenceSeance.FicheAbsence.Matiere?.NomMatiere</td>
+                        <td class="border border-gray-300 px-4 py-2">@absenceSeance.FicheAbsence.Enseignant?.Nom</td>
+                        <td class="border border-gray-300 px-4 py-2">@absenceSeance.Seance?.NomSeance</td>
+                        <td class="border border-gray-300 px-4 py-2">
+                            <a href="/Absence/Edit/@absenceSeance.Id" class="text-teal-900 hover:underline">Modifier</a> |
+                            <a href="/Absence/Delete/@absenceSeance.Id" class="text-red-600 hover:underline">Supprimer</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

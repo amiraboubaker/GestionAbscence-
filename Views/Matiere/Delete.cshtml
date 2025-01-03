@@ -1,0 +1,21 @@
+﻿@model GestionAbscence.Models.Matiere
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Supprimer une Matière</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Supprimer une Matière</h1>
+        <p>Êtes-vous sûr de vouloir supprimer la matière <strong>@Model.NomMatiere</strong> ?</p>
+        <form asp-action="Delete" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CodeMatiere)
+            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500">Supprimer</button>
+            <a href="@Url.Action("Index", "Matiere")" class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-300">Annuler</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -26,4 +26,5 @@ public class FicheAbsence
 
     // Navigation property for Enseignant (Many-to-One)
     public virtual Enseignant Enseignant { get; set; }
+    public int Id { get; internal set; }
 }

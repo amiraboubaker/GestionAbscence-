@@ -1,0 +1,68 @@
+﻿@model GestionAbscence.Models.Matiere
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ajouter une Matière</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-gray-100 flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-teal-900 text-white flex flex-col">
+            <div class="text-2xl font-bold p-4">Dashboard</div>
+            <nav class="flex-grow">
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Étudiants</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Matières</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Absences</a>
+            </nav>
+        </div>
+        <div class="p-6 flex-grow">
+            <h1 class="text-2xl font-bold mb-4">Ajouter une Matière</h1>
+            <form asp-action="Create" method="post" class="space-y-6">
+                @Html.AntiForgeryToken()
+
+                <div>
+                    <label for="CodeMatiere" class="block text-gray-700 font-bold">Code Matière</label>
+                    @Html.TextBoxFor(model => model.CodeMatiere,
+                             new
+                             {
+                                 @class = "w-full p-2 border border-gray-300 rounded",
+                                 type = "number",
+                                 required = "required",
+                                 min = "1"
+                             })
+                    @Html.ValidationMessageFor(model => model.CodeMatiere, "", new { @class = "text-red-500 text-sm" })
+                </div>
+
+
+                <div>
+                    <label for="NomMatiere" class="block text-gray-700 font-bold">Nom Matière</label>
+                    @Html.TextBoxFor(model => model.NomMatiere, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NomMatiere, "", new { @class = "text-red-500 text-sm" })
+                </div>
+
+                <div>
+                    <label for="NbreHeureCoursParSemaine" class="block text-gray-700 font-bold">Nombre d'heures de cours par semaine</label>
+                    @Html.TextBoxFor(model => model.NbreHeureCoursParSemaine, new { @class = "w-full p-2 border border-gray-300 rounded", type = "number", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NbreHeureCoursParSemaine, "", new { @class = "text-red-500 text-sm" })
+                </div>
+
+                <div>
+                    <label for="NbreHeureTDParSemaine" class="block text-gray-700 font-bold">Nombre d'heures de TD par semaine</label>
+                    @Html.TextBoxFor(model => model.NbreHeureTDParSemaine, new { @class = "w-full p-2 border border-gray-300 rounded", type = "number", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NbreHeureTDParSemaine, "", new { @class = "text-red-500 text-sm" })
+                </div>
+
+                <div>
+                    <label for="NbreHeureTPParSemaine" class="block text-gray-700 font-bold">Nombre d'heures de TP par semaine</label>
+                    @Html.TextBoxFor(model => model.NbreHeureTPParSemaine, new { @class = "w-full p-2 border border-gray-300 rounded", type = "number", required = "required" })
+                    @Html.ValidationMessageFor(model => model.NbreHeureTPParSemaine, "", new { @class = "text-red-500 text-sm" })
+                </div>
+
+                <button type="submit" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Ajouter</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

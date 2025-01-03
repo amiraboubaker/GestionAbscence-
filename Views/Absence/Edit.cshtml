@@ -1,0 +1,53 @@
+﻿@model GestionAbscence.Models.FicheAbsenceSeance
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Modifier une Absence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="min-h-screen bg-gray-100 flex">
+        <!-- Sidebar -->
+        <div class="w-64 bg-teal-900 text-white flex flex-col">
+            <div class="text-2xl font-bold p-4">Dashboard</div>
+            <nav class="flex-grow">
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Étudiants</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Matières</a>
+                <a href="#" class="block py-2 px-4 hover:bg-teal-700">Absences</a>
+            </nav>
+        </div>
+        <!-- Contenu -->
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Modifier une Absence</h1>
+        <form asp-action="Edit" method="post" class="space-y-6">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.FicheAbsence.Id)
+
+            <div>
+                <label for="Description" class="block text-gray-700 font-bold">Description</label>
+                @Html.TextBoxFor(model => model.FicheAbsence.Description, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                @Html.ValidationMessageFor(model => model.FicheAbsence.Description, "", new { @class = "text-red-500 text-sm" })
+            </div>
+            <div>
+                <label for="CodeClasse" class="block text-gray-700 font-bold">Classe</label>
+                <select asp-for="FicheAbsence.CodeClasse" asp-items="@(new SelectList(ViewBag.Classes, "CodeClasse", "NomClasse"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeMatiere" class="block text-gray-700 font-bold">Matière</label>
+                <select asp-for="FicheAbsence.CodeMatiere" asp-items="@(new SelectList(ViewBag.Matieres, "CodeMatiere", "NomMatiere"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeEnseignant" class="block text-gray-700 font-bold">Enseignant</label>
+                <select asp-for="FicheAbsence.CodeEnseignant" asp-items="@(new SelectList(ViewBag.Enseignants, "CodeEnseignant", "Nom"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeSeance" class="block text-gray-700 font-bold">Séance</label>
+                <select asp-for="CodeSeance" asp-items="@(new SelectList(ViewBag.Seances, "CodeSeance", "NomSeance"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <button type="submit" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Modifier</button>
+        </form>
+    </div>
+</body>
+</html>

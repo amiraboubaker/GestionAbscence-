@@ -1,0 +1,40 @@
+﻿@model GestionAbscence.Models.FicheAbsenceSeance
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ajouter une Absence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="p-6">
+        <h1 class="text-2xl font-bold mb-4">Ajouter une Absence</h1>
+        <form asp-action="Create" method="post" class="space-y-6">
+            @Html.AntiForgeryToken()
+
+            <div>
+                <label for="Description" class="block text-gray-700 font-bold">Description</label>
+                @Html.TextBoxFor(model => model.FicheAbsence.Description, new { @class = "w-full p-2 border border-gray-300 rounded", required = "required" })
+                @Html.ValidationMessageFor(model => model.FicheAbsence.Description, "", new { @class = "text-red-500 text-sm" })
+            </div>
+            <div>
+                <label for="CodeClasse" class="block text-gray-700 font-bold">Classe</label>
+                <select asp-for="FicheAbsence.CodeClasse" asp-items="@(new SelectList(ViewBag.Classe, "CodeClasse", "NomClasse"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeMatiere" class="block text-gray-700 font-bold">Matière</label>
+                <select asp-for="FicheAbsence.CodeMatiere" asp-items="@(new SelectList(ViewBag.Matiere, "CodeMatiere", "NomMatiere"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeEnseignant" class="block text-gray-700 font-bold">Enseignant</label>
+                <select asp-for="FicheAbsence.CodeEnseignant" asp-items="@(new SelectList(ViewBag.Enseignant, "CodeEnseignant", "Nom"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <div>
+                <label for="CodeSeance" class="block text-gray-700 font-bold">Séance</label>
+                <select asp-for="CodeSeance" asp-items="@(new SelectList(ViewBag.Seance, "CodeSeance", "NomSeance"))" class="w-full p-2 border border-gray-300 rounded"></select>
+            </div>
+            <button type="submit" class="bg-teal-900 text-white px-4 py-2 rounded hover:bg-teal-700">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>
